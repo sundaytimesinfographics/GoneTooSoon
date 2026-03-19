@@ -1,0 +1,3620 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Merged CVD Report — Responsive</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&amp;family=Merriweather:wght@300;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #616261;
+        --accent: #f9c511;
+        --text: #ffffff;
+        --muted: #cfcfcf;
+        --fs-hero: clamp(36px, 6.8vw, 92px);
+        --fs-body: clamp(15px, 2vw, 22px);
+        --max-content-width: 1400px;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        height: 100%;
+      }
+
+      body {
+        background-color: var(--bg);
+        color: var(--text);
+        font-family: Roboto, system-ui, -apple-system, "Segoe UI", "Helvetica",
+          Arial, sans-serif;
+        font-family: Georgia, Times, "Times New Roman", serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        line-height: 1.45;
+      }
+
+      img {
+        max-width: 100%;
+        display: block;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      .wrap {
+        width: min(95%, var(--max-content-width));
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .overlay-contrast {
+        background: #616261;
+      }
+
+      .green {
+        background-color: var(--bg);
+        width: 100%;
+        height: 100vh;
+        color: var(--text);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 0 20px;
+        text-align: center;
+      }
+
+      .green h1 {
+        font-family: "Merriweather", serif;
+        font-size: var(--fs-hero);
+        line-height: 1;
+        margin-bottom: 8px;
+        text-shadow: 2px 6px 10px rgba(0, 0, 0, 0.45);
+        font-weight: 700;
+      }
+
+      .green h5 {
+        font-size: clamp(18px, 2.8vw, 34px);
+        margin-top: 6px;
+        font-weight: 400;
+        opacity: 0.98;
+      }
+
+      .author-block {
+        margin-top: 2rem;
+        font-family: "Roboto", sans-serif;
+        /* display: none !important; */
+      }
+
+      .byline {
+        font-size: clamp(16px, 2.2vw, 20px);
+        font-weight: 400;
+        color: var(--text);
+      }
+
+      .author-email {
+        font-size: clamp(13px, 1.8vw, 16px);
+        font-style: italic;
+        font-weight: 300;
+        color: var(--muted);
+        margin-top: 4px;
+        display: none !important;
+      }
+
+      .hide-byline {
+        display: none !important;
+      }
+
+      .hide-email {
+        display: none !important;
+      }
+
+      .stat-sequence {
+        background-color: var(--bg);
+        width: 100%;
+        height: auto;
+        position: relative;
+      }
+
+      .g-aiAbs .g-pstyle4 {
+        text-align: right;
+      }
+
+      .g-aiAbs .g-pstyle5 {
+        font-size: 30px;
+        font-weight: 900;
+
+        text-align: right;
+      }
+
+      .stat-pin-container {
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: sticky;
+        top: 0;
+        padding: 0 10vw;
+        text-align: center;
+      }
+
+      .stat-text {
+        font-family: "Merriweather", serif;
+        color: var(--text);
+        position: absolute;
+        width: 80%;
+        max-width: 900px;
+        font-size: clamp(20px, 4vw, 52px);
+        line-height: 1.25;
+        font-weight: 300;
+        opacity: 0;
+        text-shadow: 0 2px 6px rgba(0, 0, 0, 0.45);
+      }
+
+      .pin-sequence {
+        height: 100vh;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--bg);
+        overflow: hidden;
+      }
+
+      .scroll-container {
+        font-family: "Roboto", sans-serif;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100vh;
+        gap: 3vw;
+        padding: 0 4vw;
+        box-sizing: border-box;
+      }
+
+      canvas {
+        display: block;
+        width: 48vw;
+        max-width: 48vw;
+        height: auto;
+        max-height: 90vh;
+        object-fit: contain;
+        image-rendering: crisp-edges;
+        image-rendering: pixelated;
+        border-radius: 0;
+        box-shadow: none;
+        margin: 0;
+      }
+
+      .scroll-text {
+        flex: 1;
+        max-width: 480px;
+        text-align: right;
+        font-size: var(--fs-body);
+        color: var(--text);
+        line-height: 1.45;
+        font-weight: 400;
+        padding: 0 10px;
+      }
+      .scroll-text .data-year {
+        display: block;
+        font-family: "Merriweather", serif;
+        font-size: clamp(20px, 3.4vw, 28px);
+        color: var(--accent);
+        font-weight: 700;
+        margin-bottom: 6px;
+      }
+      .scroll-text .data-count {
+        display: block;
+        font-size: clamp(16px, 2.2vw, 20px);
+      }
+
+      @media (max-width: 1024px) {
+        .scroll-container {
+          flex-direction: column;
+          text-align: center;
+          gap: 1.6rem;
+        }
+
+        canvas {
+          width: 80vw;
+          max-width: 80vw;
+          margin-bottom: 1rem;
+        }
+
+        .scroll-text {
+          max-width: 90%;
+          text-align: center;
+        }
+      }
+
+      @media (max-width: 600px) {
+        canvas {
+          width: 92vw;
+          max-width: 92vw;
+          height: auto;
+        }
+      }
+
+      .cvd-section {
+        width: 100%;
+        padding: 40px 20px;
+        box-sizing: border-box;
+      }
+
+      .content {
+        max-width: 580px;
+        margin: 0 auto;
+      }
+
+      .intro {
+        font-family: "Roboto", sans-serif;
+        font-size: clamp(15px, 1.9vw, 22px);
+        line-height: 1.5;
+        font-weight: 400;
+        margin-bottom: 28px;
+        color: var(--text);
+      }
+
+      .cvd-section h2 {
+        font-family: "Merriweather", serif;
+        font-size: clamp(22px, 3vw, 32px);
+        line-height: 1.2;
+        font-weight: 700;
+        margin-bottom: 18px;
+        color: var(--text);
+      }
+
+      .disease-info p {
+        font-family: "Roboto", sans-serif;
+        font-size: clamp(15px, 1.8vw, 22px);
+        line-height: 1.4;
+        margin-bottom: 28px;
+        color: var(--text);
+      }
+
+      .disease-info strong {
+        font-family: "Merriweather", serif;
+        font-weight: 700;
+        font-size: clamp(16px, 2.1vw, 24px);
+        line-height: 1.3;
+        color: var(--text);
+      }
+
+      .heart-section {
+        margin-top: 120px;
+      }
+
+      .heart-section h3 {
+        font-family: "Merriweather", serif;
+        font-size: clamp(20px, 3vw, 32px);
+        font-weight: 700;
+        margin-bottom: 10px;
+        color: var(--text);
+      }
+
+      .heart-section p {
+        font-family: "Roboto", sans-serif;
+        font-size: clamp(15px, 1.9vw, 22px);
+        line-height: 1.5;
+        font-weight: 400;
+        color: var(--text);
+      }
+
+      .image-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+
+      .ai2html {
+        width: 100%;
+        max-width: 680px;
+        margin: 0 auto;
+        position: relative;
+      }
+
+      .ai2html .g-artboard {
+        width: 100%;
+        height: auto;
+        position: relative;
+      }
+
+      .ai2html .g-artboard > div:first-child {
+        width: 100%;
+        height: 0;
+      }
+
+      .ai2html .g-aiImg {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+
+      .ai2html p {
+        margin: 0;
+        color: var(--text);
+        font-size: clamp(14px, 1.8vw, 18px);
+        line-height: 1.3;
+      }
+
+      .g-aiAbs .g-pstyle0 {
+        font-size: 30px;
+        font-weight: 900;
+      }
+
+      .g-aiAbs {
+        position: absolute;
+        color: var(--text);
+      }
+
+      .comparison-sequence {
+        height: auto;
+        width: 100%;
+        background-color: var(--bg);
+        position: relative;
+        margin-bottom: 0;
+        padding-bottom: 0;
+      }
+
+      .comparison-pin-container {
+        width: 100%;
+        height: 100vh;
+        position: sticky;
+        top: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 2vw;
+        padding: 0 3vw;
+        overflow: hidden;
+        margin-bottom: 0;
+      }
+
+      .comparison-image-area {
+        flex-shrink: 0;
+        max-width: 55%;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+      }
+
+      #comparison-img {
+        width: 100%;
+        height: auto;
+        max-height: 80vh;
+        object-fit: contain;
+        opacity: 0;
+        transition: opacity 0.25s ease;
+      }
+
+      .comparison-text-area {
+        flex-shrink: 0;
+        min-width: 250px;
+        max-width: 340px;
+        padding: 0 20px;
+        color: var(--text);
+        text-align: left;
+      }
+
+      .comparison-year {
+        display: block;
+        font-size: clamp(36px, 8vw, 72px);
+        color: var(--accent);
+        font-weight: 800;
+        line-height: 1.05;
+      }
+
+      .comparison-deaths {
+        display: block;
+        font-size: clamp(18px, 3.2vw, 32px);
+        font-weight: 400;
+      }
+
+      @media (max-width: 1024px) {
+        .comparison-image-area {
+          max-width: 70%;
+        }
+      }
+
+      @media (max-width: 600px) {
+        .scroll-container {
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          text-align: center;
+          height: 100vh;
+          gap: 1.5rem;
+        }
+
+        canvas {
+          width: 92vw;
+          max-width: 92vw;
+          height: auto;
+          display: block;
+          margin: 0 auto;
+        }
+
+        .scroll-text {
+          max-width: 90%;
+          text-align: center;
+          margin: 0 auto;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .scroll-text .data-year {
+          font-size: clamp(18px, 7vw, 28px);
+        }
+
+        .scroll-text .data-count {
+          font-size: clamp(14px, 4.5vw, 20px);
+        }
+      }
+
+      .risk-factors .content {
+        width: min(95%, 1100px);
+        margin-top: 0;
+        position: relative;
+        z-index: 1;
+      }
+
+      @media (max-width: 768px) {
+        .risk-factors {
+          margin-top: -60vh;
+        }
+
+        #g-HeartImage-box {
+          display: none;
+        }
+
+        .mobile-heart-diagrams {
+          display: flex;
+        }
+        .heart-attack-image-area {
+          max-width: 100%;
+          min-width: 100%;
+        }
+
+        #g-heart-box,
+        #g-coranary-box {
+          max-width: 100%;
+        }
+
+        #g-heart-box #g-heart-Artboard_1 > div:first-child {
+          padding-bottom: 120% !important;
+        }
+        #g-coranary-box #g-coranary-Artboard_1 > div:first-child {
+          padding-bottom: 165% !important;
+        }
+
+        #g-heart-box .g-aiAbs p,
+        #g-coranary-box .g-aiAbs p,
+        #g-heart-box .g-artboard p,
+        #g-coranary-box .g-artboard p {
+          font-size: clamp(14px, 3.5vw, 18px) !important;
+          line-height: 1.3 !important;
+
+          font-weight: 400 !important;
+          text-shadow: 0 0 4px rgba(0, 0, 0, 0.7);
+        }
+
+        #g-heart-box .g-aiAbs,
+        #g-coranary-box .g-aiAbs {
+          width: auto !important;
+          right: auto !important;
+          left: 0 !important;
+          text-align: left !important;
+        }
+
+        #g-coranary-Artboard_1 .g-pstyle0 {
+          font-size: clamp(20px, 4.5vw, 24px) !important;
+          line-height: 1.1 !important;
+        }
+
+        #g-heart-Artboard_1 #g-ai0-1 {
+          right: 30% !important;
+          left: auto !important;
+          top: 5% !important;
+          text-align: right !important;
+        }
+
+        #g-heart-Artboard_1 #g-ai0-3 {
+          right: -2% !important;
+          left: auto !important;
+          top: 7% !important;
+          text-align: right !important;
+        }
+
+        #g-heart-Artboard_1 #g-ai0-4 {
+          right: -2% !important;
+          left: auto !important;
+          top: 28% !important;
+          text-align: right !important;
+        }
+
+        #g-heart-Artboard_1 #g-ai0-5 {
+          right: -2% !important;
+          left: auto !important;
+          top: 43% !important;
+          text-align: right !important;
+        }
+
+        #g-heart-Artboard_1 #g-ai0-7 {
+          right: -2% !important;
+          left: auto !important;
+          width: 25% !important;
+          top: 60% !important;
+          text-align: right !important;
+        }
+
+        #g-heart-Artboard_1 #g-ai0-2 {
+          left: -2% !important;
+          right: auto !important;
+          width: 10% !important;
+          top: 12% !important;
+        }
+
+        #g-heart-Artboard_1 #g-ai0-6 {
+          left: -2% !important;
+          right: auto !important;
+          width: 10% !important;
+          top: 55% !important;
+        }
+
+        #g-coranary-Artboard_1 #g-ai0-1 {
+          right: 5% !important;
+          left: auto !important;
+          top: 0% !important;
+          text-align: right !important;
+        }
+
+        #g-coranary-Artboard_1 #g-ai0-2 {
+          right: 5% !important;
+          left: auto !important;
+          top: 8% !important;
+          text-align: right !important;
+        }
+
+        #g-coranary-Artboard_1 #g-ai0-3 {
+          left: 5% !important;
+          right: auto !important;
+          top: 45% !important;
+        }
+
+        #g-coranary-Artboard_1 #g-ai0-4 {
+          left: 5% !important;
+          right: auto !important;
+          top: 0% !important;
+        }
+
+        #g-heart-Artboard_1 .g-pstyle0,
+        #g-heart-Artboard_1 .g-pstyle1 {
+          text-align: inherit !important;
+        }
+        #g-coranary-Artboard_1 .g-pstyle0,
+        #g-coranary-Artboard_1 .g-pstyle1 {
+          text-align: inherit !important;
+        }
+      }
+      .pin-sequence {
+        height: auto;
+        min-height: 100vh;
+      }
+
+      .cvd-section {
+        margin-top: -1px;
+      }
+
+      .risk-factors h1 {
+        font-family: "Merriweather", serif;
+        font-size: clamp(24px, 3.8vw, 38px);
+        line-height: 1.05;
+        font-weight: 700;
+        margin-bottom: 26px;
+      }
+
+      .risk-factors h2 {
+        font-family: "Merriweather", serif;
+        font-size: clamp(18px, 2.8vw, 24px);
+        line-height: 1.25;
+        font-weight: 700;
+        margin-top: 40px;
+        margin-bottom: 20px;
+      }
+
+      .factor {
+        font-family: "Roboto", sans-serif;
+        display: flex;
+        align-items: flex-start;
+        gap: 20px;
+        margin-bottom: 26px;
+      }
+
+      .factor img {
+        width: 128px;
+        height: 128px;
+        object-fit: cover;
+        flex-shrink: 0;
+      }
+
+      .factor p {
+        font-size: clamp(15px, 1.9vw, 22px);
+        line-height: 1.45;
+        color: var(--text);
+      }
+
+      .factor p span {
+        font-weight: 700;
+      }
+
+      .actions-section {
+        padding: 40px 20px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        box-sizing: border-box;
+      }
+
+      .actions-section .content {
+        width: min(95%, 1100px);
+      }
+
+      .actions-section h2 {
+        font-family: "Merriweather", serif;
+        font-weight: 700;
+        font-size: clamp(22px, 3.2vw, 38px);
+        margin-bottom: 20px;
+      }
+
+      .action {
+        display: flex;
+        align-items: flex-start;
+        gap: 20px;
+        margin-bottom: 22px;
+      }
+
+      .action img {
+        width: 120px;
+        height: 120px;
+        object-fit: cover;
+        border-radius: 6px;
+      }
+
+      .text .title {
+        font-family: "Merriweather", serif;
+        font-weight: 700;
+        font-size: clamp(18px, 2.2vw, 24px);
+        margin: 0 0 6px 0;
+      }
+
+      .text .desc {
+        font-family: "Roboto", sans-serif;
+        font-size: clamp(14px, 1.8vw, 20px);
+        line-height: 1.45;
+      }
+
+      .quote {
+        font-family: "Roboto", sans-serif;
+        font-weight: 300;
+        font-size: clamp(16px, 2vw, 22px);
+        line-height: 1.4;
+        margin-top: 18px;
+        font-style: italic;
+        color: var(--text);
+      }
+
+      .bottom-image {
+        margin-top: 20px;
+        display: flex;
+        justify-content: center;
+        width: 100%;
+      }
+
+      #g-pie-box {
+        width: 100%;
+        max-width: 433px;
+        position: relative;
+      }
+
+      .g-artboard {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 1/1;
+        overflow: visible;
+      }
+
+      .g-aiImg {
+        width: 100%;
+        height: auto;
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+
+      .g-aiAbs {
+        font-family: "Roboto", sans-serif;
+        position: absolute;
+        color: var(--text);
+        font-size: clamp(14px, 1.8vw, 20px);
+        line-height: 1.2;
+      }
+
+      @media (max-width: 768px) {
+        #ai2html-coronary .g-artboard {
+          padding-bottom: 180% !important;
+        }
+
+        #g-coronary-Artboard_1 #g-ai0-1 {
+          top: 5% !important;
+          right: 5% !important;
+        }
+
+        #g-coronary-Artboard_1 #g-ai0-3 {
+          top: 50% !important;
+          left: 5% !important;
+        }
+
+        #g-coronary-Artboard_1 #g-ai0-4 {
+          top: 75% !important;
+          left: 5% !important;
+        }
+      }
+
+      @media (max-width: 768px) {
+        #g-Bubbles-Artboard_1 .g-aiImg {
+          content: url("images/Bubbles-Artboard_2.png") !important;
+        }
+
+        .cvd-section .image-container {
+          max-width: 320px;
+          margin-left: auto;
+          margin-right: auto;
+          margin-top: 30px;
+        }
+
+        #ai2html-heart .g-artboard {
+          padding-bottom: 135% !important;
+        }
+
+        #g-Bubbles-box {
+          margin-bottom: 100px !important;
+        }
+
+        #g-Bubbles-Artboard_1 .g-aiAbs {
+          text-align: left !important;
+          left: auto !important;
+          right: auto !important;
+          width: 45% !important;
+          padding: 0 !important;
+          background: none !important;
+
+          text-shadow: 0 0 4px rgba(0, 0, 0, 0.7);
+        }
+
+        #g-Bubbles-Artboard_1 .g-pstyle0,
+        #g-Bubbles-Artboard_1 .g-pstyle1,
+        #g-Bubbles-Artboard_1 .g-pstyle4,
+        #g-Bubbles-Artboard_1 .g-pstyle5 {
+          color: var(--text) !important;
+          font-size: clamp(14px, 3.5vw, 18px) !important;
+          font-weight: 500 !important;
+          line-height: 1.2 !important;
+        }
+
+        #g-Bubbles-Artboard_1 .g-pstyle0,
+        #g-Bubbles-Artboard_1 .g-pstyle5 {
+          font-size: clamp(24px, 6vw, 36px) !important;
+          font-weight: 700 !important;
+          line-height: 1.1 !important;
+          margin-top: 2px;
+        }
+
+        #g-Bubbles-Artboard_1 > .g-artboard-inner > div:nth-child(2) {
+          top: 8% !important;
+          left: 53% !important;
+          width: 45% !important;
+          text-align: left !important;
+        }
+
+        #g-Bubbles-Artboard_1 > .g-artboard-inner > div:nth-child(1) {
+          top: 15% !important;
+          right: 2% !important;
+          width: 40% !important;
+          text-align: right !important;
+        }
+
+        #g-Bubbles-Artboard_1
+          > .g-artboard-inner
+          > div:nth-child(1)
+          .g-pstyle5 {
+          text-align: right !important;
+        }
+
+        #g-Bubbles-Artboard_1 > .g-artboard-inner > div:nth-child(5) {
+          top: 105% !important;
+          left: 2% !important;
+          width: 35% !important;
+          text-align: left !important;
+        }
+
+        #g-Bubbles-Artboard_1
+          > .g-artboard-inner
+          > div:nth-child(5)
+          .g-pstyle0 {
+          text-align: left !important;
+        }
+
+        #g-Bubbles-Artboard_1 > .g-artboard-inner > div:nth-child(4) {
+          top: 105% !important;
+          right: 2% !important;
+          width: 45% !important;
+          text-align: right !important;
+        }
+
+        #g-Bubbles-Artboard_1
+          > .g-artboard-inner
+          > div:nth-child(4)
+          .g-pstyle5 {
+          text-align: right !important;
+        }
+
+        #ai2html-symptoms {
+          display: none !important;
+        }
+
+        .symptoms-mobile-container {
+          display: block !important;
+          width: 100%;
+          margin: 0;
+          max-width: none;
+          padding: 0;
+        }
+
+        .symptoms-image-area {
+          position: relative;
+          width: 100%;
+          height: 0;
+          padding-bottom: 120%;
+          margin-bottom: 20px;
+        }
+
+        .symptoms-image-area img.g-aiImg {
+          content: url("images/symptomsMob.jpg") !important;
+          width: 100%;
+          height: 100% !important;
+          display: block;
+          position: absolute;
+          top: 0;
+          left: 0;
+          display: block;
+        }
+
+        .symptom-marker {
+          position: absolute;
+          width: 32px;
+          height: 32px;
+          background-color: var(--accent);
+          color: #111;
+          border-radius: 50%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-size: 18px;
+          font-weight: 700;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+          z-index: 10;
+        }
+
+        #marker-1 {
+          top: 25%;
+          right: 40%;
+        }
+        #marker-2 {
+          bottom: 20%;
+          right: 28%;
+        }
+        #marker-3 {
+          top: 53%;
+          left: 35%;
+        }
+        #marker-4 {
+          bottom: 30%;
+          left: 30%;
+        }
+        #marker-5 {
+          bottom: 30%;
+          right: 40%;
+        }
+
+        .symptoms-list {
+          list-style: none;
+          padding: 0 16px;
+          margin: 0 0 16px 0;
+          font-size: clamp(16px, 3.8vw, 22px);
+          line-height: 1.4;
+          color: var(--text) !important;
+          display: block !important;
+        }
+
+        .symptoms-list li {
+          color: var(--text) !important;
+          display: flex;
+          align-items: flex-start;
+          margin-bottom: 12px;
+        }
+
+        .symptoms-list li span {
+          width: 28px;
+          height: 28px;
+          background-color: var(--accent);
+          color: #111;
+          border-radius: 50%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-weight: 700;
+          font-size: 16px;
+          flex-shrink: 0;
+          margin-right: 12px;
+          margin-top: 2px;
+        }
+      }
+
+      @media (max-width: 1024px) {
+        .scroll-text,
+        .stat-pin-container,
+        .comparison-text-area,
+        .risk-factors .content,
+        .actions-section .content,
+        .cvd-section .content {
+          background: #616261;
+          padding: 18px;
+          border-radius: 12px;
+        }
+
+        .cvd-section h2 {
+          font-weight: 600;
+          text-align: left;
+        }
+
+        .scroll-text {
+          font-weight: 600;
+          text-align: center !important;
+          width: 100%;
+          margin: 0 auto;
+          display: block;
+          padding-top: 20px;
+        }
+
+        .stat-text {
+          font-weight: 600;
+          text-align: center !important;
+          margin: 0 auto;
+          left: 0;
+          right: 0;
+          width: 90%;
+        }
+
+        .g-aiAbs {
+          padding: 6px;
+          border-radius: 6px;
+        }
+      }
+
+      @media (max-width: 1440px) {
+        canvas {
+          width: 80vw;
+        }
+
+        .comparison-image-area {
+          max-width: 56%;
+        }
+      }
+
+      @media (max-width: 1024px) {
+        .green {
+          height: 85vh;
+        }
+        .green h1 {
+          font-size: 54px;
+        }
+
+        .scroll-container {
+          flex-direction: column;
+        }
+
+        canvas {
+          width: 84vw;
+          max-width: 760px;
+        }
+
+        .comparison-image-area {
+          max-width: 72%;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .green h1 {
+          font-size: clamp(28px, 8.6vw, 54px);
+          text-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .ai2html {
+          max-width: 560px;
+        }
+
+        .factor img,
+        .action img {
+          width: 110px;
+          height: 110px;
+        }
+
+        .comparison-image-area {
+          max-width: 100%;
+        }
+
+        #comparison-img {
+          max-height: 40vh;
+        }
+
+        .comparison-text-area {
+          max-width: 92%;
+          text-align: center;
+          padding: 12px;
+          border-radius: 10px;
+        }
+
+        .stat-sequence,
+        .comparison-sequence {
+          height: calc(100vh * 5);
+        }
+
+        .comparison-sequence {
+          margin-bottom: 250px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        body {
+          background-color: #616261;
+        }
+
+        .green {
+          padding: 18px 12px;
+          height: auto;
+          min-height: 60vh;
+          justify-content: center;
+        }
+
+        .green h1 {
+          font-size: clamp(26px, 9.5vw, 44px);
+          line-height: 1.02;
+        }
+
+        .green h5 {
+          font-size: clamp(14px, 4.5vw, 22px);
+          font-weight: 500;
+        }
+
+        canvas {
+          width: 94vw;
+          max-width: 680px;
+          border-radius: 6px;
+        }
+
+        .scroll-text,
+        .cvd-section .content,
+        .risk-factors .content,
+        .actions-section .content {
+          padding: 14px;
+          border-radius: 10px;
+          background: #616261;
+        }
+
+        .factor {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+        .factor img {
+          width: 88px;
+          height: 88px;
+          margin-bottom: 8px;
+        }
+
+        .action {
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+        }
+
+        .action img {
+          width: 88px;
+          height: 88px;
+        }
+
+        .quote {
+          font-size: 15px;
+        }
+
+        .comparison-year {
+          font-size: clamp(28px, 10vw, 48px);
+        }
+
+        .stat-sequence {
+          height: auto;
+          position: relative;
+        }
+
+        .comparison-sequence {
+          height: auto;
+          margin-bottom: 0;
+        }
+
+        .risk-factors .content {
+          margin-top: 0;
+          position: relative;
+          z-index: 1;
+        }
+
+        .g-aiAbs {
+          font-size: clamp(12px, 3.6vw, 16px);
+          padding: 6px;
+        }
+
+        .sources {
+          max-width: 480px;
+          height: 70px;
+          font-size: 12px;
+          text-align: center;
+          margin: 0 auto;
+        }
+      }
+
+      @media (max-height: 560px) and (max-width: 420px) {
+        .stat-pin-container,
+        .comparison-pin-container {
+          padding-top: 12px;
+          padding-bottom: 12px;
+        }
+
+        .stat-text {
+          font-family: "Roboto", sans-serif;
+          font-size: clamp(16px, 3.2vw, 28px);
+          line-height: 1.6;
+          width: 92%;
+          font-weight: 500;
+          text-shadow: none;
+          text-align: center;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .pin-sequence .scroll-container {
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          text-align: center;
+          height: 100vh;
+          gap: 1.2rem;
+          padding: 0 12px;
+        }
+
+        .pin-sequence canvas {
+          width: 92vw !important;
+          max-width: 92vw !important;
+          height: auto;
+          display: block;
+          margin: 0 auto;
+        }
+
+        .pin-sequence .scroll-text {
+          max-width: 92%;
+          margin: 0 auto;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          text-align: center;
+        }
+      }
+
+      @media (max-width: 600px) {
+        .comparison-sequence .comparison-pin-container {
+          flex-direction: column !important;
+          justify-content: center !important;
+          align-items: center !important;
+          text-align: center;
+          gap: 1rem;
+          padding: 18px;
+        }
+
+        .comparison-sequence .comparison-image-area {
+          max-width: 90% !important;
+          justify-content: center !important;
+        }
+
+        .comparison-sequence #comparison-img {
+          max-height: 50vh;
+          width: auto;
+          margin: 0 auto;
+        }
+
+        .comparison-sequence .comparison-text-area {
+          max-width: 92% !important;
+          padding: 6px 0 !important;
+          text-align: center !important;
+        }
+
+        .comparison-sequence .comparison-year {
+          font-size: clamp(28px, 9vw, 48px);
+        }
+
+        .comparison-sequence .comparison-deaths {
+          font-size: clamp(16px, 4vw, 22px);
+        }
+      }
+
+      @media (min-width: 1025px) {
+        .comparison-sequence .comparison-pin-container {
+          flex-direction: row !important;
+          text-align: left;
+        }
+        .pin-sequence .scroll-container {
+          flex-direction: row;
+          align-items: center;
+          justify-content: center;
+        }
+      }
+
+      .sources {
+        max-width: 480px;
+
+        height: 70px;
+        font-size: 12px;
+        text-align: center;
+        margin: 0 auto;
+      }
+
+      @media (max-width: 768px) {
+        #ai2html-symptoms {
+          display: none !important;
+        }
+
+        .section-heart-attack {
+          padding-left: 0 !important;
+          padding-right: 0 !important;
+        }
+
+        .symptoms-yellow-box {
+          width: 100%;
+          max-width: none;
+          margin: 16px 0 38px 0;
+
+          padding-top: 20px;
+          padding-bottom: 20px;
+          padding-left: 16px;
+          padding-right: 16px;
+
+          text-align: center !important;
+        }
+
+        .section-heart-attack .section-heading,
+        .section-heart-attack .section-body {
+          padding-left: 16px !important;
+          padding-right: 16px !important;
+        }
+
+        .symptoms-mobile-container {
+          display: block !important;
+          width: 100%;
+          margin: 0;
+          max-width: none;
+          padding: 0;
+        }
+
+        .symptoms-image-area {
+          position: relative;
+          width: 100%;
+          height: auto;
+          margin-bottom: 20px;
+          aspect-ratio: 988 / 1290;
+        }
+
+        .symptoms-image-area .g-aiImg {
+          content: url("images/symptomsMob.jpg") !important;
+          width: 100%;
+          height: auto;
+          display: block;
+        }
+
+        .symptoms-image-area img.g-aiImg {
+          content: url("images/symptomsMob.jpg") !important;
+          width: 100%;
+          height: auto;
+          display: block;
+        }
+
+        .symptom-marker {
+          position: absolute;
+          width: 32px;
+          height: 32px;
+          background-color: var(--accent);
+          color: #111;
+          border-radius: 50%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-size: 18px;
+          font-weight: 700;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+          z-index: 10;
+        }
+
+        #marker-1 {
+          top: 8% !important;
+          right: 42% !important;
+        }
+
+        #marker-2 {
+          top: 66% !important;
+          left: 37% !important;
+          right: auto !important;
+          bottom: auto !important;
+        }
+
+        #marker-3 {
+          top: 40% !important;
+          left: 28% !important;
+        }
+
+        #marker-4 {
+          top: 82% !important;
+          left: 15% !important;
+          bottom: auto !important;
+        }
+
+        #marker-5 {
+          top: 56% !important;
+          right: 30% !important;
+          bottom: auto !important;
+        }
+
+        .symptoms-list {
+          list-style: none;
+          padding: 0 16px;
+          margin: 0 0 16px 0;
+          font-size: clamp(16px, 3.8vw, 22px);
+          line-height: 1.4;
+          color: var(--text) !important;
+        }
+
+        .symptoms-list li {
+          color: var(--text) !important;
+          display: flex;
+          align-items: flex-start;
+          margin-bottom: 12px;
+        }
+
+        .symptoms-list li span {
+          width: 28px;
+          height: 28px;
+          background-color: var(--accent);
+          color: #111;
+          border-radius: 50%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-weight: 700;
+          font-size: 16px;
+          flex-shrink: 0;
+          margin-right: 12px;
+          margin-top: 2px;
+        }
+      }
+    </style>
+    <style>
+      :root {
+        --bg: #616261;
+        --symptoms-yellow: #f9c511;
+        --max-section-width: 780px;
+      }
+
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+      }
+      body {
+        background-color: var(--bg);
+        color: #fff;
+        font-family: Roboto, Arial, sans-serif;
+      }
+
+      .section-heart-attack {
+        width: 100%;
+        max-width: var(--max-section-width);
+        margin: 0 auto;
+        padding: 0 16px;
+        color: #ffffff;
+      }
+
+      .section-heading {
+        font-family: Merriweather, serif;
+        font-size: clamp(20px, 6vw, 28px) !important;
+        font-weight: 700;
+        line-height: 1.4;
+        padding: 0 16px;
+        text-align: center;
+        margin-bottom: 22px;
+      }
+
+      .section-body {
+        font-family: Roboto, sans-serif;
+        font-size: clamp(15px, 1.9vw, 20px);
+        line-height: 1.5;
+        max-width: 700px;
+        margin: 18px auto 32px auto;
+        text-align: left;
+      }
+
+      .ai2html-wrap {
+        margin: 32px auto;
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      .ai2html-wrap * {
+        max-width: 100% !important;
+        height: auto !important;
+        box-sizing: border-box;
+      }
+
+      .symptoms-yellow-box {
+        background: var(--symptoms-yellow);
+        color: #111;
+        border-radius: 15px;
+        padding: clamp(14px, 2.6vw, 22px);
+        font-family: Roboto, sans-serif;
+        font-size: clamp(16px, 2.4vw, 22px);
+        max-width: 680px;
+        margin: 16px auto 38px auto;
+        text-align: center;
+      }
+
+      #ai2html-heart {
+        width: 525px;
+        height: 570px;
+        max-width: 100%;
+        margin: 0 auto;
+        overflow: hidden;
+        box-sizing: border-box;
+      }
+
+      #ai2html-heart .g-artboard {
+        width: 525px !important;
+        height: 570px !important;
+        max-width: 100% !important;
+        overflow: hidden !important;
+        box-sizing: border-box;
+        transform-origin: top center;
+      }
+
+      #ai2html-heart .g-aiImg {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: contain;
+        display: block;
+      }
+
+      #ai2html-heart .ai2html,
+      #ai2html-heart .ai2html .g-artboard,
+      #ai2html-heart > * {
+        box-sizing: border-box;
+      }
+
+      @media (max-width: 640px) {
+        #ai2html-heart,
+        #ai2html-heart .g-artboard {
+          width: calc(100% - 32px) !important;
+          height: auto !important;
+        }
+        #ai2html-heart .g-aiImg {
+          height: auto !important;
+        }
+      }
+
+      #ai2html-coronary {
+        width: 414px;
+        height: 624px;
+        max-width: 100%;
+        margin: 0 auto;
+        overflow: hidden;
+        box-sizing: border-box;
+      }
+
+      #ai2html-coronary .g-artboard {
+        width: 414px !important;
+        height: 624px !important;
+        max-width: 100% !important;
+        overflow: hidden !important;
+        box-sizing: border-box;
+        transform-origin: top center;
+      }
+
+      #ai2html-coronary .g-aiImg {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: contain;
+        display: block;
+      }
+
+      @media (max-width: 640px) {
+        #ai2html-coronary,
+        #ai2html-coronary .g-artboard {
+          width: calc(100% - 32px) !important;
+          height: auto !important;
+        }
+        #ai2html-coronary .g-aiImg {
+          height: auto !important;
+        }
+      }
+
+      :root {
+        --human-w: 123px;
+        --human-h: 379px;
+        --marker-w: 28px;
+        --marker-h: 28px;
+        --gap-left: 173px;
+        --gap-bottom: 144px;
+      }
+
+      .human-block {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        position: relative;
+        padding: 24px 0;
+      }
+
+      .human-row {
+        position: relative;
+        min-height: var(--human-h);
+        width: 100%;
+        max-width: 900px;
+      }
+
+      .human-artboard {
+        position: relative;
+        width: var(--human-w);
+        height: var(--human-h);
+        margin: 0 auto;
+        overflow: hidden;
+        display: block;
+      }
+
+      .human-img,
+      #ai2html-human .g-artboard {
+        width: var(--human-w) !important;
+        height: var(--human-h) !important;
+        object-fit: contain;
+        display: block;
+      }
+
+      .human-marker {
+        position: absolute;
+        width: var(--marker-w);
+        height: var(--marker-h);
+        background: #f9c511;
+        left: calc(
+          50% - (var(--human-w) / 2) - var(--gap-left) - var(--marker-w)
+        );
+        top: calc(var(--human-h) - var(--gap-bottom) - var(--marker-h));
+      }
+
+      @media (max-width: 640px) {
+        .human-artboard {
+          margin: 0 auto;
+        }
+
+        .human-caption-mobile {
+          display: flex !important;
+          align-items: center;
+          justify-content: center;
+          width: 90%;
+          max-width: 400px;
+          margin: 0 auto 12px auto;
+        }
+
+        .human-marker-text {
+          position: static !important;
+
+          width: auto !important;
+
+          margin-left: 10px !important;
+          margin-bottom: 0 !important;
+          text-align: left !important;
+          font-size: clamp(16px, 3.5vw, 20px) !important;
+          line-height: 1.2 !important;
+          left: auto !important;
+          top: auto !important;
+
+          white-space: normal !important;
+        }
+
+        .human-marker-text br {
+          display: none;
+        }
+
+        .human-marker {
+          margin: 0 !important;
+          position: static !important;
+          flex-shrink: 0;
+        }
+      }
+
+      .human-marker-text {
+        position: absolute;
+        width: 144px;
+        font-family: Roboto, sans-serif;
+        font-size: 18px;
+        line-height: 26px;
+        color: #ffffff;
+        left: calc(
+          50% - (var(--human-w) / 2) - var(--gap-left) - var(--marker-w)
+        );
+        top: calc(var(--human-h) - var(--gap-bottom) + 6px);
+        text-align: left;
+      }
+
+      @media (max-width: 640px) {
+        :root {
+          --human-w: 40vw;
+          --human-h: auto;
+        }
+        .human-marker {
+          position: static;
+          margin: 12px auto 6px;
+        }
+        .human-marker-text {
+          position: static;
+          text-align: center;
+          margin-bottom: 12px;
+        }
+        .human-artboard {
+          margin: 0 auto;
+        }
+      }
+
+      #g-symptoms-box {
+        width: 949px !important;
+        height: 1041px !important;
+        max-width: 100%;
+        margin: 0 auto;
+        position: relative;
+      }
+
+      #g-symptoms-box img,
+      #g-symptoms-box svg {
+        width: 949px !important;
+        height: 1041px !important;
+        object-fit: contain;
+        display: block;
+      }
+    </style>
+    <style media="screen,print">
+      #g-heart-box,
+      #g-heart-box .g-artboard {
+        margin: 0 auto;
+      }
+      #g-heart-box p {
+        margin: 0;
+      }
+      #g-heart-box .g-aiAbs {
+        position: absolute;
+      }
+      #g-heart-box .g-aiImg {
+        position: absolute;
+        top: 0;
+        display: block;
+        width: 100% !important;
+      }
+      #g-heart-box .g-aiSymbol {
+        position: absolute;
+        box-sizing: border-box;
+      }
+      #g-heart-box .g-aiPointText p {
+        white-space: nowrap;
+      }
+      #g-heart-Artboard_1 {
+        position: relative;
+        overflow: hidden;
+      }
+      #g-heart-Artboard_1 p {
+        font-weight: 300;
+        line-height: 24px;
+        opacity: 1;
+        letter-spacing: 0em;
+        font-size: 16px;
+        text-align: left;
+        color: rgb(255, 255, 255);
+        text-transform: none;
+        padding-bottom: 0;
+        padding-top: 0;
+        mix-blend-mode: normal;
+        font-style: normal;
+        height: auto;
+        position: static;
+      }
+      #g-heart-Artboard_1 .g-pstyle0 {
+        height: 24px;
+        text-align: right;
+      }
+      #g-heart-Artboard_1 .g-pstyle1 {
+        text-align: right;
+      }
+    </style>
+    <style media="screen,print">
+      #g-coronary-box,
+      #g-coronary-box .g-artboard {
+        margin: 0 auto;
+      }
+      #g-coronary-box p {
+        margin: 0;
+      }
+      #g-coronary-box .g-aiAbs {
+        position: absolute;
+      }
+      #g-coronary-box .g-aiImg {
+        position: absolute;
+        top: 0;
+        display: block;
+        width: 100% !important;
+      }
+      #g-coronary-box .g-aiSymbol {
+        position: absolute;
+        box-sizing: border-box;
+      }
+      #g-coronary-box .g-aiPointText p {
+        white-space: nowrap;
+      }
+      #g-coronary-Artboard_1 {
+        position: relative;
+        overflow: hidden;
+      }
+      #g-coronary-Artboard_1 p {
+        font-weight: 300;
+        line-height: 1.3;
+        opacity: 1;
+        letter-spacing: 0em;
+        font-size: 14px;
+        text-align: left;
+        color: rgb(255, 255, 255);
+        text-transform: none;
+        padding-bottom: 0;
+        padding-top: 0;
+        mix-blend-mode: normal;
+        font-style: normal;
+        height: auto;
+        position: static;
+      }
+      #g-coronary-Artboard_1 .g-pstyle0 {
+        font-weight: 400;
+        line-height: 1.3;
+        font-size: 18px;
+        text-align: right;
+      }
+      #g-coronary-Artboard_1 .g-pstyle1 {
+        height: 24px;
+        text-align: right;
+      }
+    </style>
+    <style media="screen,print">
+      #g-symptoms-box,
+      #g-symptoms-box .g-artboard {
+        overflow: visible !important;
+        margin: 0 auto;
+      }
+      #g-symptoms-box p {
+        margin: 0;
+      }
+      #g-symptoms-box .g-aiAbs {
+        position: absolute;
+      }
+      #g-symptoms-box .g-aiImg {
+        position: absolute;
+        top: 0;
+        display: block;
+        width: 100% !important;
+      }
+      #g-symptoms-box .g-aiSymbol {
+        position: absolute;
+        box-sizing: border-box;
+      }
+      #g-symptoms-box .g-aiPointText p {
+        white-space: nowrap;
+      }
+      #g-symptoms-Artboard_1 {
+        position: relative;
+        overflow: hidden;
+      }
+      #g-symptoms-Artboard_1 p {
+        font-weight: 350;
+        line-height: 24px;
+        opacity: 1;
+        letter-spacing: 0em;
+        font-size: 16px;
+        text-align: left;
+        color: rgb(255, 255, 255);
+        text-transform: none;
+        padding-bottom: 0;
+        padding-top: 0;
+        mix-blend-mode: normal;
+        font-style: normal;
+        height: auto;
+        position: static;
+      }
+      #g-symptoms-Artboard_1 .g-pstyle0 {
+        text-align: right;
+      }
+
+      .symptoms-mobile-container,
+      .symptoms-list {
+        display: none;
+      }
+
+      @media (max-width: 900px) {
+        .section-heart-attack .symptoms-yellow-box {
+          width: calc(100% - 40px) !important;
+          margin: 0 auto 38px auto !important;
+          padding: 20px !important;
+          border-radius: 14px !important;
+          box-sizing: border-box !important;
+          background-color: #f9c511 !important;
+          color: #111 !important;
+          text-align: center !important;
+          display: block !important;
+        }
+      }
+
+      @media (max-width: 768px) {
+        #ai2html-heart {
+          width: 100% !important;
+          max-width: none !important;
+          margin: 0 auto;
+        }
+
+        #ai2html-heart .g-artboard {
+          transform: scale(1) !important;
+          transform-origin: top center;
+        }
+
+        #ai2html-heart .g-aiImg {
+          width: 100% !important;
+          height: auto !important;
+        }
+      }
+
+      @media (max-width: 768px) {
+        #ai2html-coronary {
+          width: 100% !important;
+          max-width: none !important;
+          margin: 0 auto;
+        }
+
+        #ai2html-coronary .g-artboard {
+          transform: scale(1.15) !important;
+          transform-origin: top center;
+        }
+
+        #ai2html-coronary .g-aiImg {
+          width: 100% !important;
+          height: auto !important;
+        }
+      }
+
+      @media (max-width: 1024px) {
+        .comparison-sequence .comparison-pin-container {
+          flex-direction: column !important;
+          justify-content: center !important;
+          align-items: center !important;
+          gap: 15px !important;
+          padding-top: 0 !important;
+        }
+
+        .comparison-sequence .comparison-image-area {
+          max-width: 85% !important;
+          margin: 0 auto;
+          flex: 0 1 auto;
+          display: flex;
+          justify-content: center;
+        }
+
+        #comparison-img {
+          max-height: 40vh !important;
+          width: auto !important;
+          object-fit: contain;
+        }
+
+        .comparison-sequence .comparison-text-area {
+          width: 95% !important;
+          max-width: 600px;
+          text-align: center !important;
+          padding: 0 !important;
+          margin: 0 auto;
+        }
+      }
+
+      .pin-sequence .scroll-container {
+        display: flex;
+        width: 100%;
+
+        height: 100dvh !important;
+        min-height: 100vh;
+        box-sizing: border-box;
+        overflow: hidden;
+      }
+
+      @media (orientation: portrait) {
+        .pin-sequence .scroll-container {
+          flex-direction: column !important;
+          justify-content: center !important;
+          align-items: center !important;
+          padding: 20px;
+          gap: 3vh;
+        }
+
+        .pin-sequence canvas {
+          width: 90vw !important;
+          max-width: 650px !important;
+          height: auto !important;
+
+          max-height: 50vh !important;
+
+          margin: 0 !important;
+          object-fit: contain;
+        }
+
+        .pin-sequence .scroll-text {
+          width: 90% !important;
+          max-width: 600px;
+          text-align: center !important;
+          margin: 0 !important;
+
+          font-size: clamp(16px, 2.2vh, 24px);
+        }
+      }
+
+      @media (orientation: landscape) {
+        .pin-sequence .scroll-container {
+          flex-direction: row !important;
+          justify-content: center !important;
+          align-items: center !important;
+          padding: 0 4vw;
+          gap: 4vw;
+        }
+
+        .pin-sequence canvas {
+          height: 70vh !important;
+          width: auto !important;
+          max-width: 50vw !important;
+          margin: 0 !important;
+          object-fit: contain;
+        }
+
+        .pin-sequence .scroll-text {
+          flex: 1;
+          max-width: 600px;
+
+          text-align: right !important;
+          margin: 0 !important;
+        }
+      }
+
+      @media (orientation: landscape) and (max-height: 500px) {
+        .pin-sequence .scroll-container {
+          gap: 4vw !important;
+          justify-content: center !important;
+
+          margin-top: -100px !important;
+        }
+
+        .pin-sequence canvas {
+          height: calc(100vh - 80px) !important;
+          width: auto !important;
+          max-width: 45vw !important;
+          margin: 0 !important;
+        }
+
+        .pin-sequence .scroll-text {
+          font-size: clamp(12px, 4vh, 16px) !important;
+          line-height: 1.3;
+          flex: 1;
+          max-width: 45vw !important;
+          text-align: left !important;
+        }
+      }
+
+      @media (max-width: 1024px) {
+        .cvd-section {
+          margin-top: -20vh !important;
+
+          position: relative;
+          z-index: 5;
+        }
+      }
+
+      @media (min-width: 769px) {
+        .cvd-section .image-container {
+          margin-bottom: 0 !important;
+        }
+
+        .disease-info {
+          margin-top: -170px !important;
+          position: relative;
+          z-index: 2;
+        }
+      }
+
+      @media (max-width: 768px) {
+        #g-Bubbles-box {
+          margin-bottom: 20px !important;
+        }
+        .disease-info {
+          margin-top: 85px !important;
+          position: relative;
+          z-index: 2;
+        }
+
+        #ai2html-heart .g-artboard {
+          padding-bottom: 115% !important;
+        }
+
+        #ai2html-coronary .g-artboard {
+          padding-bottom: 160% !important;
+          margin-bottom: 40px;
+        }
+
+        #g-coronary-Artboard_1 #g-ai0-2 {
+          top: 18% !important;
+          right: 2% !important;
+          text-align: right !important;
+        }
+
+        #g-coronary-Artboard_1 #g-ai0-3 {
+          top: 52% !important;
+          left: 2% !important;
+          text-align: left !important;
+        }
+
+        #g-coronary-Artboard_1 #g-ai0-4 {
+          top: 74% !important;
+          left: 2% !important;
+          text-align: left !important;
+        }
+
+        #g-coronary-Artboard_1 #g-ai0-1 {
+          top: 2% !important;
+          right: 2% !important;
+        }
+      }
+
+      @media (max-width: 600px) and (orientation: portrait) {
+        #g-coronary-Artboard_1-img {
+          content: url("images/coronary-mobile.jpg") !important;
+          width: 100% !important;
+          height: auto !important;
+        }
+
+        #ai2html-coronary .g-artboard {
+          padding-bottom: 125% !important;
+          margin-bottom: 50px !important;
+        }
+
+        #g-coronary-Artboard_1 #g-ai0-1 {
+          top: 0% !important;
+          right: 5% !important;
+          text-align: right !important;
+        }
+
+        #g-coronary-Artboard_1 #g-ai0-2 {
+          top: 19% !important;
+          right: 5% !important;
+          text-align: right !important;
+        }
+
+        #g-coronary-Artboard_1 #g-ai0-3 {
+          top: 43% !important;
+          left: 5% !important;
+          text-align: left !important;
+        }
+
+        #g-coronary-Artboard_1 #g-ai0-4 {
+          top: 51% !important;
+          left: 5% !important;
+          text-align: left !important;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .cvd-section {
+          padding-bottom: 0 !important;
+          margin-bottom: 0 !important;
+        }
+
+        #section-heart-attack {
+          margin-top: -80px !important;
+          padding-top: 0 !important;
+          position: relative;
+          z-index: 5;
+        }
+
+        .section-heart-attack .section-heading {
+          margin-top: 0 !important;
+          padding-top: 10px !important;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .risk-factors {
+          margin-top: 0 !important;
+        }
+
+        .risk-factors .content {
+          margin-top: 0 !important;
+        }
+
+        .comparison-sequence {
+          margin-bottom: 50px !important;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .factor {
+          flex-direction: row !important;
+          align-items: flex-start !important;
+          gap: 16px !important;
+          text-align: left !important;
+        }
+
+        .factor img {
+          width: 70px !important;
+          height: 70px !important;
+          margin-bottom: 0 !important;
+          flex-shrink: 0;
+        }
+
+        .factor p {
+          margin: 0 !important;
+          font-size: clamp(15px, 4vw, 18px) !important;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .action {
+          flex-direction: row !important;
+          align-items: flex-start !important;
+          gap: 16px !important;
+          text-align: left !important;
+        }
+
+        .action img {
+          width: 70px !important;
+          height: 70px !important;
+          margin-bottom: 0 !important;
+          border-radius: 6px !important;
+          flex-shrink: 0;
+        }
+
+        .action .text {
+          text-align: left !important;
+          margin: 0 !important;
+        }
+
+        .action .text .title {
+          font-size: 16px !important;
+          margin-top: 0 !important;
+          line-height: 1.2 !important;
+        }
+      }
+
+      .comparison-pin-container {
+        width: 100%;
+        height: 100vh;
+        position: sticky;
+        top: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 0 3vw;
+        box-sizing: border-box;
+        overflow: hidden;
+      }
+
+      .comparison-heading {
+        font-family: "Roboto", serif;
+        font-size: clamp(16px, 2vw, 28px);
+        color: #ffffff;
+        text-align: center;
+        margin-bottom: 2vh;
+        line-height: 1.3;
+        font-weight: 700;
+        z-index: 2;
+        width: 100%;
+        max-width: 1100px;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+      }
+
+      .comparison-content-wrapper {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: auto;
+        gap: 2vw;
+      }
+
+      .comparison-image-area {
+        flex: 1;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        max-width: 65%;
+      }
+
+      #comparison-img {
+        width: auto;
+        height: auto;
+        max-width: 100%;
+
+        max-height: 55vh;
+        object-fit: contain;
+
+        object-position: center top;
+        opacity: 0;
+        transition: opacity 0.25s ease;
+      }
+
+      .comparison-text-area {
+        flex-shrink: 0;
+        min-width: 250px;
+        max-width: 340px;
+        padding-left: 20px;
+        text-align: left;
+      }
+
+      @media (max-width: 1024px) {
+        .comparison-pin-container {
+          justify-content: center;
+          padding-top: 40px;
+        }
+
+        .comparison-heading {
+          font-size: clamp(15px, 4.5vw, 22px);
+          width: 95%;
+          margin-bottom: 10px;
+        }
+
+        .comparison-content-wrapper {
+          flex-direction: column;
+          justify-content: center;
+          gap: 10px;
+        }
+
+        .comparison-image-area {
+          justify-content: center;
+          max-width: 100%;
+          width: 100%;
+        }
+
+        #comparison-img {
+          max-height: 40vh !important;
+          max-width: 95%;
+        }
+
+        .comparison-text-area {
+          text-align: center;
+          padding-left: 0;
+          width: 100%;
+        }
+      }
+
+      @media (min-width: 1025px) {
+        .comparison-sequence .comparison-pin-container {
+          flex-direction: column !important;
+          justify-content: center !important;
+          align-items: center !important;
+          text-align: center;
+        }
+
+        .comparison-content-wrapper {
+          display: flex;
+          flex-direction: row !important;
+          justify-content: center;
+          align-items: center;
+          width: 100%;
+          gap: 40px;
+          margin-top: 20px;
+        }
+
+        .comparison-image-area {
+          flex: 1;
+          display: flex;
+          justify-content: flex-end;
+          max-width: 55%;
+        }
+
+        #comparison-img {
+          max-height: 60vh !important;
+          object-position: top center;
+        }
+
+        .comparison-text-area {
+          flex: 1;
+          text-align: left !important;
+          padding-left: 0;
+          max-width: 300px;
+        }
+
+        .comparison-heading {
+          width: 100%;
+          max-width: 1200px;
+          margin-bottom: 20px;
+          font-size: 28px;
+        }
+      }
+
+      .masthead {
+        background-color: #0065ad;
+        height: 60px;
+        width: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 9999;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        display: flex;
+        align-items: center;
+      }
+
+      .masthead-inner {
+        width: 100%;
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .masthead-left img,
+      .masthead-right img {
+        height: 35px;
+        width: auto;
+        display: block;
+      }
+
+      .hub-link {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        cursor: pointer;
+      }
+
+      .logo-full {
+        display: block !important;
+      }
+
+      .logo-mobile {
+        display: none !important;
+      }
+
+      @media (max-width: 600px) {
+        .logo-full {
+          display: none !important;
+        }
+        .logo-mobile {
+          display: block !important;
+        }
+        .masthead-inner {
+          padding: 0 15px;
+        }
+      }
+
+      @media (max-width: 950px) and (orientation: landscape) {
+        .masthead {
+          position: absolute !important;
+          top: 0;
+        }
+      }
+
+      .stat-pin-container,
+      .pin-sequence,
+      .pin-sequence .scroll-container,
+      .comparison-pin-container {
+        height: calc(100vh - 60px) !important;
+        height: calc(100dvh - 60px) !important;
+      }
+
+      @media (max-width: 950px) and (orientation: landscape) {
+        .comparison-sequence .comparison-pin-container {
+          padding-top: 0 !important;
+          justify-content: center !important;
+        }
+
+        .comparison-heading {
+          font-size: clamp(14px, 4vh, 18px) !important;
+          margin-bottom: 2vh !important;
+        }
+
+        .comparison-content-wrapper {
+          flex-direction: row !important;
+          gap: 5vw !important;
+          align-items: center !important;
+        }
+
+        .comparison-image-area {
+          flex: 1 !important;
+          max-width: 50% !important;
+          justify-content: flex-end !important;
+        }
+
+        #comparison-img {
+          max-height: 65vh !important;
+          width: auto !important;
+          object-position: top center !important;
+        }
+
+        .comparison-text-area {
+          flex: 1 !important;
+          max-width: 50% !important;
+          text-align: left !important;
+          padding-left: 0 !important;
+        }
+
+        .comparison-year {
+          font-size: clamp(24px, 10vh, 40px) !important;
+          line-height: 1 !important;
+        }
+
+        .comparison-deaths {
+          font-size: clamp(14px, 5vh, 20px) !important;
+        }
+      }
+
+      #ai2html-heart,
+      #ai2html-heart .g-artboard,
+      #ai2html-coronary,
+      #ai2html-coronary .g-artboard {
+        height: auto !important;
+        overflow: visible !important;
+      }
+
+      @media (max-width: 950px) and (orientation: landscape) {
+        #ai2html-heart,
+        #ai2html-coronary {
+          width: 100% !important;
+          max-width: 40vw !important;
+          margin: 15px auto !important;
+        }
+
+        #ai2html-heart .g-artboard,
+        #ai2html-coronary .g-artboard {
+          transform: none !important;
+          padding-bottom: 0 !important;
+        }
+
+        #g-coronary-Artboard_1 > div:first-child {
+          padding-bottom: 150.7246% !important;
+        }
+        #g-coronary-Artboard_1-img {
+          content: url("images/coronary-Artboard_1.jpg") !important;
+        }
+
+        #g-coronary-Artboard_1 #g-ai0-1 {
+          top: 5.4487% !important;
+          right: 2.9776% !important;
+          left: auto !important;
+        }
+        #g-coronary-Artboard_1 #g-ai0-2 {
+          top: 27.5154% !important;
+          right: 3.0306% !important;
+          left: auto !important;
+        }
+        #g-coronary-Artboard_1 #g-ai0-3 {
+          top: 60.4167% !important;
+          left: 5.5041% !important;
+          right: auto !important;
+        }
+        #g-coronary-Artboard_1 #g-ai0-4 {
+          top: 71.4744% !important;
+          left: 5.5041% !important;
+          right: auto !important;
+        }
+
+        #g-heart-Artboard_1 > div:first-child {
+          padding-bottom: 108.7619% !important;
+        }
+
+        #g-heart-Artboard_1 #g-ai0-1 {
+          top: 10.2795% !important;
+          right: 37.2554% !important;
+          left: auto !important;
+        }
+        #g-heart-Artboard_1 #g-ai0-2 {
+          top: 10.5079% !important;
+          left: 3.6721% !important;
+          right: auto !important;
+        }
+        #g-heart-Artboard_1 #g-ai0-3 {
+          top: 22.9422% !important;
+          right: 4.0744% !important;
+          left: auto !important;
+        }
+        #g-heart-Artboard_1 #g-ai0-4 {
+          top: 53.7653% !important;
+          right: 4.2128% !important;
+          left: auto !important;
+        }
+        #g-heart-Artboard_1 #g-ai0-5 {
+          top: 66.0245% !important;
+          right: 4.2128% !important;
+          left: auto !important;
+        }
+        #g-heart-Artboard_1 #g-ai0-6 {
+          top: 81.4361% !important;
+          left: 3.6721% !important;
+          right: auto !important;
+        }
+        #g-heart-Artboard_1 #g-ai0-7 {
+          top: 85.289% !important;
+          right: 4.0964% !important;
+          left: auto !important;
+        }
+
+        #ai2html-heart .g-aiAbs p,
+        #ai2html-coronary .g-aiAbs p {
+          font-size: clamp(10px, 2.5vw, 14px) !important;
+          line-height: 1.1 !important;
+        }
+      }
+
+      @media (max-width: 950px) {
+        div[style="height: 80px"] {
+          height: 30px !important;
+        }
+
+        .heart-section {
+          margin-top: 40px !important;
+        }
+
+        .risk-factors {
+          margin-top: -20px !important;
+        }
+      }
+
+      @media (orientation: landscape) and (max-height: 500px) {
+        .cvd-section {
+          margin-top: -30vh !important;
+        }
+      }
+
+      .scroll-indicator {
+        position: relative !important;
+
+        /* CHANGE THIS VALUE: Increase to 150px or 200px for a larger gap */
+        margin-top: 150px !important;
+
+        text-align: center !important;
+        z-index: 200 !important;
+        pointer-events: none !important;
+
+        /* Matches your Gun Violence brand style */
+        color: #888888 !important;
+        font-family: "Roboto", sans-serif !important;
+        font-size: 12px !important;
+        font-weight: 500 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 2px !important;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="masthead">
+      <div class="masthead-inner">
+        <div class="masthead-left">
+          <a
+            href="https://sundaytimes.lk/graphics"
+            class="hub-link"
+            aria-label="Return to Infographics Hub"
+          >
+            <img
+              src="images/st-logo-full.svg"
+              alt="Sunday Times"
+              class="logo-full"
+            />
+            <img src="images/st-logo-mobile.svg" alt="ST" class="logo-mobile" />
+          </a>
+        </div>
+
+        <div class="masthead-right">
+          <a
+            href="https://sundaytimes.lk/graphics"
+            class="hub-link"
+            aria-label="Return to Infographics Hub"
+          >
+            <img src="images/infographics-logo.svg" alt="Infographics" />
+          </a>
+        </div>
+      </div>
+    </nav>
+    <section class="green">
+      <h1>Gone Too Soon</h1>
+      <h5>The Rise of Young Heart Deaths</h5>
+      <div class="author-block">
+        <p class="byline">By Nalin Balasuriya</p>
+        <p class="author-email">nbalasuriya@gmail.com</p>
+      </div>
+      <div class="scroll-indicator">
+        <p>Scroll to Begin</p>
+        <div class="arrow-wrapper">
+          <svg width="30" height="20" viewBox="0 0 30 20" fill="none">
+            <path
+              d="M5 5l10 10 10-10"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </div>
+      </div>
+    </section>
+    <section class="stat-sequence">
+      <div class="stat-pin-container">
+        <p class="stat-text"></p>
+        <p class="stat-text"></p>
+        <p class="stat-text"></p>
+        <p class="stat-text"></p>
+      </div>
+    </section>
+    <section class="pin-sequence">
+      <div class="scroll-container">
+        <canvas height="1550" id="seq-canvas" width="1702"> </canvas>
+        <div class="scroll-text">
+          <div id="weight-text"></div>
+        </div>
+      </div>
+    </section>
+    <section class="cvd-section">
+      <div class="content">
+        <p class="intro">
+          <strong> Cardiovascular diseases (CVD) </strong>
+          are conditions that affect
+          <br />
+          1. the heart
+          <br />
+          2. the blood vessels
+        </p>
+        <h2>Deaths resulting from major circulatory system diseases in 2020</h2>
+        <div class="image-container">
+          <div class="ai2html" id="g-Bubbles-box">
+            <div class="g-artboard" id="g-Bubbles-Artboard_1">
+              <div></div>
+              <div class="g-artboard-inner">
+                <img
+                  alt="Deaths from circulatory system diseases"
+                  class="g-aiImg"
+                  src="images/Bubbles-Artboard_1.png"
+                />
+                <div
+                  class="g-aiAbs"
+                  style="top: 7.8%; right: 5.1%; width: 27.5%"
+                >
+                  <p class="g-pstyle4">Cerebrovascular diseases</p>
+                  <p class="g-pstyle5">4,962</p>
+                </div>
+                <div
+                  class="g-aiAbs"
+                  style="top: 7.8%; left: 4.4%; width: 25.9%"
+                >
+                  <p>Ischaemic heart disease</p>
+                  <p class="g-pstyle0">15,761</p>
+                </div>
+                <div
+                  class="g-aiAbs"
+                  style="top: 41.2%; right: 5.3%; width: 19.5%"
+                >
+                  <p class="g-pstyle4">Other heart diseases</p>
+                  <p class="g-pstyle5">7,974</p>
+                </div>
+                <div
+                  class="g-aiAbs"
+                  style="top: 41.2%; left: 4.4%; width: 24.8%"
+                >
+                  <p class="g-pstyle1">Hypertensive diseases</p>
+                  <p class="g-pstyle0">4,266</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="disease-info">
+          <p>
+            <strong> Hypertensive diseases: </strong>
+            Problems from high blood pressure, e.g., heart failure, stroke risk.
+          </p>
+          <p>
+            <strong> Ischaemic heart disease: </strong>
+            Narrowed arteries reduce blood to the heart, causing angina or heart
+            attack.
+          </p>
+          <p>
+            <strong> Other heart diseases: </strong>
+            Includes cardiomyopathy, arrhythmias, congenital defects, and
+            inflammation.
+          </p>
+          <p>
+            <strong> Cerebrovascular diseases: </strong>
+            Blood vessel disorders in the brain, mainly stroke and TIAs
+            (Transient Ischemic Attacks).
+          </p>
+        </div>
+        <div class="heart-section">
+          <h3>The human heart</h3>
+          <p>
+            The human heart, about the size of a fist, is the body’s strongest
+            muscle. It begins beating just three weeks after conception and, by
+            age 70, will have beaten 2.5 billion times. Through 97,000 km of
+            blood vessels, it pumps blood to deliver oxygen and nutrients while
+            removing waste.
+          </p>
+        </div>
+      </div>
+    </section>
+    <div style="height: 80px"></div>
+    <section class="section-heart-attack" id="section-heart-attack">
+      <h2 class="section-heading">What happens during a heart attack</h2>
+
+      <div class="ai2html-wrap" id="ai2html-heart">
+        <div class="ai2html" id="g-heart-box">
+          <div
+            class="g-artboard"
+            data-aspect-ratio="0.919"
+            data-min-width="0"
+            id="g-heart-Artboard_1"
+            style="max-width: 525px; max-height: 571px"
+          >
+            <div style="padding: 0 0 108.7619% 0"></div>
+            <img
+              alt=""
+              class="g-heart-Artboard_1-img g-aiImg"
+              id="g-heart-Artboard_1-img"
+              src="images/heart-Artboard_1.jpg"
+            />
+            <div
+              class="g-Layer_2 g-aiAbs g-aiPointText"
+              id="g-ai0-1"
+              style="
+                top: 10.2795%;
+                margin-top: -12.7px;
+                right: 37.2554%;
+                width: 59px;
+              "
+            >
+              <p class="g-pstyle0">Aorta</p>
+            </div>
+            <div
+              class="g-Layer_2 g-aiAbs"
+              id="g-ai0-2"
+              style="top: 10.5079%; left: 3.6721%; width: 13.3333%"
+            >
+              <p>Superior</p>
+              <p>vena cava</p>
+            </div>
+            <div
+              class="g-Layer_2 g-aiAbs"
+              id="g-ai0-3"
+              style="top: 22.9422%; right: 4.0744%; width: 16.1905%"
+            >
+              <p class="g-pstyle1">Left main</p>
+              <p class="g-pstyle1">coronary artery</p>
+            </div>
+            <div
+              class="g-Layer_2 g-aiAbs"
+              id="g-ai0-4"
+              style="top: 53.7653%; right: 4.2128%; width: 12.9524%"
+            >
+              <p class="g-pstyle1">Site of</p>
+              <p class="g-pstyle1">blockage</p>
+            </div>
+            <div
+              class="g-Layer_2 g-aiAbs"
+              id="g-ai0-5"
+              style="top: 66.0245%; right: 4.2128%; width: 12.9524%"
+            >
+              <p class="g-pstyle1">Blood</p>
+              <p class="g-pstyle1">supply</p>
+              <p class="g-pstyle1">blocked</p>
+            </div>
+            <div
+              class="g-Layer_2 g-aiAbs"
+              id="g-ai0-6"
+              style="top: 81.4361%; left: 3.6721%; width: 13.5238%"
+            >
+              <p>Right</p>
+              <p>coronary artery</p>
+            </div>
+            <div
+              class="g-Layer_2 g-aiAbs"
+              id="g-ai0-7"
+              style="top: 85.289%; right: 4.0964%; width: 17.3333%"
+            >
+              <p class="g-pstyle1">Dead heart muscle tissue</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p class="section-body">
+        When the coronary arteries (heart arteries) that supply blood to the
+        heart muscle become narrowed or blocked by fatty deposits called
+        plaques, blood flow and oxygen to the heart are reduced. This can cause
+        chest pain, known as angina.
+      </p>
+
+      <div class="ai2html-wrap" id="ai2html-coronary">
+        <div class="ai2html" id="g-coronary-box">
+          <div
+            class="g-artboard"
+            data-aspect-ratio="0.663"
+            data-min-width="0"
+            id="g-coronary-Artboard_1"
+            style="max-width: 414px; max-height: 624px"
+          >
+            <div style="padding: 0 0 150.7246% 0"></div>
+            <img
+              alt=""
+              class="g-coronary-Artboard_1-img g-aiImg"
+              id="g-coronary-Artboard_1-img"
+              src="images/coronary-Artboard_1.jpg"
+            />
+            <div
+              class="g-Layer_1 g-aiAbs"
+              id="g-ai0-1"
+              style="top: 5.4487%; right: 2.9776%; width: 31.8841%"
+            >
+              <p class="g-pstyle0">coronary artery</p>
+            </div>
+            <div
+              class="g-Layer_1 g-aiAbs g-aiPointText"
+              id="g-ai0-2"
+              style="
+                top: 27.5154%;
+                margin-top: -12.7px;
+                right: 3.0306%;
+                width: 74px;
+              "
+            >
+              <p class="g-pstyle1">Plaques</p>
+            </div>
+            <div
+              class="g-Layer_1 g-aiAbs"
+              id="g-ai0-3"
+              style="top: 60.4167%; left: 5.5041%; width: 16.9082%"
+            >
+              <p>Narrowed</p>
+              <p>artery</p>
+            </div>
+            <div
+              class="g-Layer_1 g-aiAbs"
+              id="g-ai0-4"
+              style="top: 71.4744%; left: 5.5041%; width: 10.628%"
+            >
+              <p>Blood clot</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p class="section-body">
+        If a coronary artery becomes completely blocked — often by a blood clot
+        forming on a ruptured plaque — the part of the heart muscle supplied by
+        that artery is starved of oxygen and nutrients. Within about 30 minutes,
+        heart muscle cells begin to die. Most damage occurs within 6–12 hours.
+      </p>
+
+      <h3 class="section-heading">Common heart attack symptoms</h3>
+
+      <p class="section-body">
+        Pain or discomfort spreading to the shoulders, arms (especially the left
+        arm), back, neck, jaw, or upper abdomen.
+      </p>
+
+      <div
+        aria-label="Human figure showing common pain areas"
+        class="human-block"
+      >
+        <div class="human-row">
+          <div class="human-caption-mobile">
+            <div class="human-marker"></div>
+
+            <div class="human-marker-text">
+              The areas where pain is most likely felt
+            </div>
+          </div>
+
+          <div class="human-artboard" id="ai2html-human">
+            <img
+              alt="Areas where pain is most likely felt"
+              class="human-img"
+              src="images/human.png"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="symptoms-yellow-box">
+        Many heart attacks are mistaken for gastritis because early symptoms can
+        feel similar — a delay that can be deadly.
+      </div>
+
+      <div class="ai2html-wrap" id="ai2html-symptoms">
+        <div class="ai2html" id="g-symptoms-box">
+          <div
+            class="g-artboard"
+            data-aspect-ratio="0.911"
+            data-min-width="0"
+            id="g-symptoms-Artboard_1"
+            style="max-width: 949px; max-height: 1042px"
+          >
+            <div style="padding: 0 0 109.7998% 0"></div>
+            <img
+              alt=""
+              class="g-symptoms-Artboard_1-img g-aiImg"
+              id="g-symptoms-Artboard_1-img"
+              src="images/symptoms-Artboard_1.jpg"
+            />
+            <div
+              class="g-Layer_1 g-aiAbs"
+              id="g-ai0-1"
+              style="top: 12%; right: 7%; width: 14.3309%"
+            >
+              <p class="g-pstyle0">Lightheadedness, dizziness, or fainting</p>
+            </div>
+            <div
+              class="g-Layer_1 g-aiAbs"
+              id="g-ai0-2"
+              style="top: 32.2649%; left: 22.9509%; width: 8.1138%"
+            >
+              <p>Nausea or vomiting</p>
+            </div>
+            <div
+              class="g-Layer_1 g-aiAbs"
+              id="g-ai0-3"
+              style="top: 30.4722%; right: 2.9759%; width: 15.3846%"
+            >
+              <p class="g-pstyle0">
+                Shortness of breath — with or without chest pain
+              </p>
+            </div>
+            <div
+              class="g-Layer_1 g-aiAbs"
+              id="g-ai0-4"
+              style="top: 55.6008%; left: 4.6501%; width: 20%"
+            >
+              <p>
+                Chest pain, pressure, tightness, or discomfort — often lasting
+                more than a few minutes, or coming and going
+              </p>
+            </div>
+            <div
+              class="g-Layer_1 g-aiAbs"
+              id="g-ai0-5"
+              style="top: 81.2%; left: 4.6501%; width: 18.5954%"
+            >
+              <p>Fatigue or unusual tiredness, especially in women</p>
+            </div>
+
+            <div
+              class="g-Layer_1 g-aiAbs"
+              id="g-ai0-6"
+              style="top: 100%; left: 4.6501%; width: 10.432%"
+            >
+              <p>Cold sweating</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="symptoms-mobile-container">
+        <ul class="symptoms-list">
+          <li><span>1</span>Lightheadedness, dizziness, or fainting</li>
+          <li>
+            <span>2</span>Shortness of breath — with or without chest pain
+          </li>
+          <li><span>3</span>Nausea or vomiting</li>
+          <li><span>4</span>Cold sweating</li>
+          <li>
+            <span>5</span>Chest pain, pressure, tightness, or discomfort — often
+            lasting more than a few minutes, or coming and going
+          </li>
+        </ul>
+
+        <div class="symptoms-image-area">
+          <img
+            alt="Man clutching chest showing symptoms"
+            class="g-aiImg"
+            src="images/symptomsMob.jpg"
+          />
+
+          <div class="symptom-marker" id="marker-1">1</div>
+          <div class="symptom-marker" id="marker-2">2</div>
+          <div class="symptom-marker" id="marker-3">3</div>
+          <div class="symptom-marker" id="marker-4">4</div>
+          <div class="symptom-marker" id="marker-5">5</div>
+        </div>
+      </div>
+    </section>
+    <div style="height: 80px"></div>
+
+    <section class="comparison-sequence">
+      <div class="comparison-pin-container">
+        <h2 class="comparison-heading">
+          Premature Mortality Trends of Ischemic Heart Disease<br />
+          in Young Adults (25–44): 2010–2020
+        </h2>
+
+        <div class="comparison-content-wrapper">
+          <div class="comparison-image-area">
+            <img
+              alt="Visualizing the increase in heart disease deaths"
+              id="comparison-img"
+              src=""
+            />
+          </div>
+          <div class="comparison-text-area">
+            <div id="comparison-data-text"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="risk-factors">
+      <div class="content wrap">
+        <h1>Major cardiovascular disease (CVD) risk factors</h1>
+        <h2>Non-modifiable Risk Factors (cannot be changed)</h2>
+        <div class="factor">
+          <img alt="Age icon" src="images/riskFactors/1.png" />
+          <p>
+            <span> Age: </span>
+            The risk of CVD rises with age as arteries naturally become stiffer
+            and plaque can build up over time.
+          </p>
+        </div>
+        <div class="factor">
+          <img alt="Sex icon" src="images/riskFactors/2.png" />
+          <p>
+            <span> Sex: </span>
+            Men generally face a higher risk of heart attack earlier in life,
+            though the risk for women increases after menopause.
+          </p>
+        </div>
+        <div class="factor">
+          <img alt="Family history icon" src="images/riskFactors/3.png" />
+          <p>
+            <span> Family history (Genetics): </span>
+            Having a parent or sibling with CVD increases one’s own risk,
+            particularly at younger ages.
+          </p>
+        </div>
+        <h2>Modifiable Risk Factors (can be changed)</h2>
+        <div class="factor">
+          <img alt="High blood pressure icon" src="images/riskFactors/4.png" />
+          <p>
+            <span> High blood pressure: </span>
+            Increases strain on the heart and arteries, raising the risk of
+            heart attack and stroke.
+          </p>
+        </div>
+        <div class="factor">
+          <img alt="High cholesterol icon" src="images/riskFactors/5.png" />
+          <p>
+            <span> High cholesterol: </span>
+            Promotes plaque buildup in arteries, reducing blood flow to the
+            heart and brain.
+          </p>
+        </div>
+        <div class="factor">
+          <img alt="Diabetes icon" src="images/riskFactors/6.png" />
+          <p>
+            <span> Diabetes: </span>
+            High blood sugar damages blood vessels and accelerates plaque
+            buildup.
+          </p>
+        </div>
+        <div class="factor">
+          <img alt="Smoking icon" src="images/riskFactors/7.png" />
+          <p>
+            <span> Smoking: </span>
+            Damages the lining of arteries, increases blood pressure, and
+            reduces oxygen in the blood.
+          </p>
+        </div>
+        <div class="factor">
+          <img alt="Physical inactivity icon" src="images/riskFactors/8.png" />
+          <p>
+            <span> Physical inactivity: </span>
+            Lack of regular exercise contributes to obesity, high blood
+            pressure, and poor cholesterol balance.
+          </p>
+        </div>
+        <div class="factor">
+          <img alt="Unhealthy diet icon" src="images/riskFactors/9.png" />
+          <p>
+            <span> Unhealthy diet: </span>
+            Diets high in salt, saturated fats, and sugar raise cholesterol and
+            blood pressure.
+          </p>
+        </div>
+        <div class="factor">
+          <img alt="Obesity icon" src="images/riskFactors/10.png" />
+          <p>
+            <span> Obesity: </span>
+            Increases blood pressure, cholesterol, and risk of diabetes — all of
+            which heighten CVD risk.
+          </p>
+        </div>
+        <div class="factor">
+          <img alt="Alcohol icon" src="images/riskFactors/11.png" />
+          <p>
+            <span> Excessive alcohol consumption: </span>
+            Raises blood pressure and triglyceride levels, damaging the heart
+            muscle.
+          </p>
+        </div>
+        <h2>Emerging Risk Factors</h2>
+        <div class="factor">
+          <img alt="Stress icon" src="images/riskFactors/12.png" />
+          <p>
+            <span> Stress: </span>
+            Chronic stress can lead to inflammation, high blood pressure, and
+            unhealthy coping behaviours.
+          </p>
+        </div>
+        <div class="factor">
+          <img alt="Sleep icon" src="images/riskFactors/13.png" />
+          <p>
+            <span> Poor sleep: </span>
+            Inadequate or poor-quality sleep can raise blood pressure and
+            contribute to obesity and diabetes.
+          </p>
+        </div>
+        <div class="factor">
+          <img alt="Air pollution icon" src="images/riskFactors/14.png" />
+          <p>
+            <span> Air pollution: </span>
+            Long-term exposure to air pollutants can damage blood vessels and
+            increase the risk of heart disease.
+          </p>
+        </div>
+        <div class="factor">
+          <img alt="Inflammation icon" src="images/riskFactors/15.png" />
+          <p>
+            <span> Chronic inflammation: </span>
+            Persistent inflammation in the body contributes to the development
+            of atherosclerosis.
+          </p>
+        </div>
+        <div class="factor">
+          <img
+            alt="Socioeconomic factors icon"
+            src="images/riskFactors/16.png"
+          />
+          <p>
+            <span> Socioeconomic factors: </span>
+            Low income, limited access to healthcare, and social stress increase
+            vulnerability to CVD.
+          </p>
+        </div>
+      </div>
+    </section>
+    <p class="divider"></p>
+    <section class="actions-section">
+      <div class="content wrap">
+        <h2>Immediate Actions in Case of a Heart Attack</h2>
+        <div class="action">
+          <img alt="Call Ambulance Service" src="images/ImmActions/1.png" />
+          <div class="text">
+            <p class="title">Call Ambulance Service (1990)</p>
+            <p class="desc">
+              Seek admission to the nearest suitable hospital right away.
+            </p>
+          </div>
+        </div>
+        <div class="action">
+          <img alt="Give Aspirin" src="images/ImmActions/2.png" />
+          <div class="text">
+            <p class="title">Give Aspirin (if safe)</p>
+            <p class="desc">
+              If the patient is conscious and not allergic, let them chew one
+              aspirin to help reduce blood clotting.
+            </p>
+          </div>
+        </div>
+        <div class="action">
+          <img alt="Keep Patient Still" src="images/ImmActions/3.png" />
+          <div class="text">
+            <p class="title">Keep Patient Still</p>
+            <p class="desc">
+              Sit them down, keep them calm. Loosen any tight clothing. Do not
+              let them walk.
+            </p>
+          </div>
+        </div>
+        <div class="action">
+          <img
+            alt="Check Breathing &amp; Pulse"
+            src="images/ImmActions/4.png"
+          />
+          <div class="text">
+            <p class="title">Check Breathing &amp; Pulse</p>
+            <p class="desc">If they stop breathing, start CPR immediately.</p>
+          </div>
+        </div>
+        <div class="action">
+          <img alt="Reassure the Patient" src="images/ImmActions/5.png" />
+          <div class="text">
+            <p class="title">Reassure the Patient</p>
+            <p class="desc">
+              Stay calm and speak gently — don’t frighten them.
+            </p>
+          </div>
+        </div>
+        <p class="quote">
+          “According to cardiologists, about 40% of patients die at the very
+          onset of a heart attack. Only around 60% survive long enough to reach
+          a hospital for admission and treatment.”
+        </p>
+        <div class="bottom-image">
+          <div class="ai2html" id="g-pie-box">
+            <div
+              class="g-artboard"
+              id="g-pie-Artboard_1"
+              style="max-width: 433px"
+            >
+              <div style="padding: 0 0 100% 0"></div>
+              <img
+                alt="Heart attack survival chart"
+                class="g-aiImg"
+                id="g-pie-Artboard_1-img"
+                src="images/ImmActions/pie-Artboard_1.png"
+              />
+              <div
+                class="g-aiAbs"
+                id="g-ai0-1"
+                style="top: 14%; left: 6%; width: 40%"
+              >
+                <p>Survive to hospital admission:</p>
+                <p class="g-pstyle0">60%</p>
+              </div>
+              <div
+                class="g-aiAbs"
+                id="g-ai0-2"
+                style="top: 14%; right: 6%; width: 40%"
+              >
+                <p class="g-pstyle4">Sudden cardiac death:</p>
+                <p class="g-pstyle5">40%</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="sources">
+      <div class="wrap">
+        <p>
+          <i>
+            Sources: World Health Organisation (WHO), Mayo Clinic, Sri Lanka
+            Heart Association, Department of Census and Statistics
+          </i>
+        </p>
+      </div>
+    </section>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script>
+      const frameCount = 7;
+      const currentFrame = (index) =>
+        `frames/frame_${index.toString().padStart(4, "0")}.jpg`;
+
+      const images = [];
+      const canvas = document.getElementById("seq-canvas");
+      const context =
+        canvas && canvas.getContext ? canvas.getContext("2d") : null;
+      const weightText = document.getElementById("weight-text");
+
+      if (canvas) {
+        canvas.width = 1702;
+        canvas.height = 1550;
+      }
+
+      const textArray = [
+        "Sugath Nuwan, 34, is a father of three and a retired Navy sailor. He is a novelist who has won the hearts of readers by writing more than 1000 novels on Facebook for over 10 years. He died at a young age on August 30 due to a heart attack while on his way to the hospital due to chest pain.",
+        "Not only him, but we now hear about young deaths from similar heart attacks every day.",
+        "Among them are famous musicians, politicians, and athletes, and their loss leaves a huge void that society cannot fill.",
+        "More and more individuals between the ages of 20 and 40 are suffering heart attacks. This number is increasing by the day.",
+        "Out of ten patients presenting for treatment, at least four or five are under the age of 40.",
+        "Data indicates that deaths from ischaemic heart disease in young people have more than doubled over the past decade.",
+        "Reported deaths from ischaemic heart disease in 25-44 year olds rose sharply from 228 in 2010 to 620 in 2020.",
+      ];
+
+      function preloadImages() {
+        for (let i = 0; i < frameCount; i++) {
+          const img = new Image();
+          img.src = currentFrame(i);
+          images.push(img);
+        }
+      }
+
+      function resizeCanvas() {
+        if (!canvas || !context) return;
+        const { width, height } = canvas.getBoundingClientRect();
+        const dpr = window.devicePixelRatio || 1;
+        canvas.width = width * dpr;
+        canvas.height = height * dpr;
+        context.scale(dpr, dpr);
+      }
+
+      resizeCanvas();
+      window.addEventListener("resize", resizeCanvas);
+
+      function render(index) {
+        if (!context) return;
+        const img = images[index];
+        if (!img || !img.complete) return;
+
+        const canvasWidth = canvas.clientWidth;
+        const canvasHeight = canvas.clientHeight;
+        const imgAspect = img.width / img.height;
+        const canvasAspect = canvasWidth / canvasHeight;
+
+        let drawWidth, drawHeight;
+        if (imgAspect > canvasAspect) {
+          drawWidth = canvasWidth;
+          drawHeight = canvasWidth / imgAspect;
+        } else {
+          drawHeight = canvasHeight;
+          drawWidth = canvasHeight * imgAspect;
+        }
+
+        const x = (canvasWidth - drawWidth) / 2;
+        const y = (canvasHeight - drawHeight) / 2;
+
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        context.drawImage(img, x, y, drawWidth, drawHeight);
+      }
+
+      const comparisonData = [
+        { year: "2010", deaths: "228 deaths." },
+        { year: "2011", deaths: "287 deaths." },
+        { year: "2012", deaths: "249 deaths." },
+        { year: "2013", deaths: "231 deaths." },
+        { year: "2014", deaths: "259 deaths." },
+        { year: "2015", deaths: "432 deaths." },
+        { year: "2019", deaths: "656 deaths." },
+        { year: "2020", deaths: "620 deaths." },
+      ];
+      const comparisonFrameCount = 8;
+      const comparisonImg = document.getElementById("comparison-img");
+      const comparisonText = document.getElementById("comparison-data-text");
+
+      const comparisonImages = [];
+
+      function preloadComparisonImages() {
+        for (let i = 0; i < comparisonFrameCount; i++) {
+          const img = new Image();
+          img.src = `frames/figure_${i}.jpg`;
+          img.onload = (function (n, image) {
+            return function () {
+              if (n === 0 && comparisonImg) {
+                comparisonImg.src = image.src;
+                comparisonImg.style.opacity = 1;
+              }
+            };
+          })(i, img);
+          comparisonImages.push(img);
+        }
+      }
+
+      window.addEventListener("load", function () {
+        preloadImages();
+        preloadComparisonImages();
+
+        if (images[0]) {
+          images[0].onload = function () {
+            render(0);
+          };
+        }
+
+        const statements = [
+          "Cardiovascular disease (CVD) is the world's number one killer.",
+          "Each year, the world loses as many people to cardiovascular disease (CVD) as the entire population of Sri Lanka—about 20.5 million lives.",
+          "In Sri Lanka, cardiovascular disease claims over 90 lives every day. This adds up to more than 33,000 deaths in a year.",
+          "Heart attacks and strokes cause 85% of all CVD deaths.",
+        ];
+
+        const statTexts = gsap.utils.toArray(".stat-text");
+        statTexts.forEach((p, i) => (p.textContent = statements[i] || ""));
+
+        const statScrollDuration = statTexts.length * 800;
+
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: ".stat-sequence",
+            start: "top 60px",
+            end: "+=" + statScrollDuration,
+            scrub: 1.5,
+            pin: true,
+            anticipatePin: 1,
+            ease: "power1.inOut",
+          },
+        });
+
+        statTexts.forEach((text, i) => {
+          tl.to(text, { opacity: 1, duration: 1, ease: "power2.out" })
+            .to(text, { opacity: 1, duration: 1.2, ease: "none" })
+            .to(text, { opacity: 0, duration: 1.2, ease: "power2.in" });
+        });
+
+        const scrollObj = { frame: 0 };
+        gsap.to(scrollObj, {
+          frame: frameCount - 1,
+          snap: { snapTo: 1, duration: 0.1 },
+          ease: "none",
+          scrollTrigger: {
+            trigger: ".pin-sequence",
+            start: "top 60px",
+            end: "+=" + frameCount * 500,
+            scrub: true,
+            pin: true,
+            anticipatePin: 1,
+          },
+          onUpdate: function () {
+            const current = Math.round(scrollObj.frame);
+            render(current);
+
+            if (textArray[current]) {
+              const fullText = textArray[current];
+
+              const match = fullText.match(/^(\d{4})\s*(.*)$/);
+              if (match) {
+                const year = match[1];
+                const count = match[2];
+                if (weightText) {
+                  weightText.innerHTML =
+                    '<span class="data-year">' +
+                    year +
+                    "</span>" +
+                    '<span class="data-count">' +
+                    count +
+                    "</span>";
+                }
+              } else {
+                if (weightText) weightText.innerHTML = fullText;
+              }
+            }
+          },
+        });
+
+        const scrollCompareObj = { frame: 0 };
+        const comparisonFrames = comparisonFrameCount - 1;
+
+        const isMobile = window.matchMedia("(max-width: 768px)").matches;
+
+        const mobileDownDelay = 0;
+        const mobileUpDelay = 0;
+
+        const baseDuration = (comparisonFrameCount - 1) * 400;
+        const endBufferMultiplier = isMobile ? 1.0 : 0.4;
+
+        const endBuffer = window.innerHeight * endBufferMultiplier;
+
+        const scrollDuration = baseDuration + endBuffer;
+
+        gsap.to(scrollCompareObj, {
+          frame: comparisonFrames,
+          snap: { snapTo: 1 },
+          ease: "none",
+          scrollTrigger: {
+            trigger: ".comparison-sequence",
+            start: "top 60px",
+            end: "+=" + scrollDuration,
+            scrub: true,
+            pin: true,
+            anticipatePin: 1.2,
+
+            onEnter: () =>
+              gsap.to([comparisonImg, comparisonText], {
+                opacity: 1,
+                duration: 0.5,
+                ease: "power2.out",
+                delay: mobileUpDelay,
+              }),
+
+            onLeave: () => {},
+
+            onEnterBack: () =>
+              gsap.to([comparisonImg, comparisonText], {
+                opacity: 1,
+                duration: 0.5,
+                ease: "power2.out",
+                delay: mobileUpDelay,
+              }),
+
+            onLeaveBack: () =>
+              gsap.to([comparisonImg, comparisonText], {
+                opacity: 0,
+                duration: 0.6,
+                ease: "power1.in",
+              }),
+          },
+
+          onUpdate: () => {
+            const current = Math.round(scrollCompareObj.frame);
+            const img = comparisonImages[current];
+            if (img && img.complete) comparisonImg.src = img.src;
+            const data = comparisonData[current];
+            if (data)
+              comparisonText.innerHTML = `
+        <span class="comparison-year">${data.year}</span>
+        <span class="comparison-deaths">${data.deaths}</span>`;
+          },
+        });
+      });
+
+      window.addEventListener("load", () => {
+        setTimeout(() => {
+          ScrollTrigger.refresh(true);
+        }, 500);
+      });
+
+      // Gentle bounce for the arrow
+      gsap.to(".arrow-wrapper", {
+        y: 10,
+        repeat: -1,
+        yoyo: true,
+        ease: "power1.inOut",
+        duration: 1.2,
+      });
+
+      // Fade out as the user leaves the intro section
+      gsap.to(".scroll-indicator", {
+        scrollTrigger: {
+          trigger: "#intro",
+          start: "top top",
+          end: "20% top",
+          scrub: true,
+        },
+        opacity: 0,
+        visibility: "hidden",
+      });
+    </script>
+  </body>
+</html>
