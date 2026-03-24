@@ -1111,10 +1111,16 @@
         }
 
         .green {
-          padding: 18px 12px;
+          /* 1. Change padding-top to your preferred gap (e.g., 100px) */
+          padding: 100px 12px 18px 12px !important;
+
+          /* 2. Change center to flex-start so padding works */
+          justify-content: flex-start !important;
+
           height: auto;
-          min-height: 60vh;
-          justify-content: center;
+          min-height: 70vh; /* Keeps the hero section tall enough */
+          display: flex;
+          flex-direction: column;
         }
 
         .green h1 {
@@ -2461,10 +2467,10 @@
 
         /* Add this block to push the content down */
         .green {
-          padding-top: 150px !important; /* Clears the 60px nav bar + 40px gap */
-          height: auto !important; /* Prevents content from being cut off */
-          min-height: 100vh; /* Maintains the full-screen look */
-          justify-content: center !important;
+          padding-top: 80px !important; /* Smaller gap for shallow landscape screens */
+          justify-content: flex-start !important;
+          height: auto !important;
+          min-height: 100vh;
         }
 
         /* Optional: Shrink the heading slightly to fit shallower screens */
