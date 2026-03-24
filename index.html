@@ -2477,8 +2477,10 @@
 
         /* Optional: Shrink the heading slightly to fit shallower screens */
         .green h1 {
-          font-size: clamp(24px, 8vh, 42px) !important;
-          margin-top: 0 !important;
+          /* Uses VH to ensure it fits the "shallow" landscape screen */
+          font-size: clamp(30px, 12vh, 52px) !important;
+          line-height: 1;
+          margin-bottom: 8px;
         }
       }
 
