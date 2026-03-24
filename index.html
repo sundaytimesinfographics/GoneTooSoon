@@ -2467,20 +2467,28 @@
           top: 0;
         }
 
-        /* Add this block to push the content down */
         .green {
-          padding-top: 100px !important; /* Smaller gap for shallow landscape screens */
+          /* Reduced padding to save vertical "real estate" */
+          padding-top: 70px !important;
           justify-content: flex-start !important;
           height: auto !important;
           min-height: 100vh;
         }
 
-        /* Optional: Shrink the heading slightly to fit shallower screens */
         .green h1 {
-          /* Uses VH to ensure it fits the "shallow" landscape screen */
-          font-size: clamp(30px, 12vh, 52px) !important;
+          font-size: clamp(28px, 10vh, 48px) !important;
           line-height: 1;
-          margin-bottom: 8px;
+          margin-bottom: 5px;
+        }
+
+        /* Reduces the gap above the byline */
+        .author-block {
+          margin-top: 0.8rem !important;
+        }
+
+        /* Reduces the 150px gap to pull the arrow back onto the screen */
+        .scroll-indicator {
+          margin-top: 25px !important;
         }
       }
 
