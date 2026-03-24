@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Merged CVD Report — Responsive</title>
+    <title>CVD</title>
     <!-- Google tag (gtag.js) -->
     <script
       async
@@ -2457,6 +2457,20 @@
         .masthead {
           position: absolute !important;
           top: 0;
+        }
+
+        /* Add this block to push the content down */
+        .green {
+          padding-top: 100px !important; /* Clears the 60px nav bar + 40px gap */
+          height: auto !important; /* Prevents content from being cut off */
+          min-height: 100vh; /* Maintains the full-screen look */
+          justify-content: center !important;
+        }
+
+        /* Optional: Shrink the heading slightly to fit shallower screens */
+        .green h1 {
+          font-size: clamp(24px, 8vh, 42px) !important;
+          margin-top: 0 !important;
         }
       }
 
